@@ -3,8 +3,6 @@ import bodyParser from 'body-parser'
 import morgan from 'morgan'
 import mongoose from 'mongoose'
 import cors from 'cors'
-import favicon  from 'serve-favicon'
-import path  from 'path'
 
 import routes from './routes'
 
@@ -12,10 +10,8 @@ const app = express()
 
 app.use(morgan('dev'))
 
-app.use(bodyParser.urlencoded({extended:false}))
+app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
-
-app.use(favicon(path.join(__dirname,'public','images','nodejs.ico')));
 
 app.use(cors())
 
