@@ -17,6 +17,9 @@ const Bill = mongoose.Schema({
         required: true
 
     },
+    cep:{
+        type:String
+    },
     status:{
         type:Boolean, 
         default:false

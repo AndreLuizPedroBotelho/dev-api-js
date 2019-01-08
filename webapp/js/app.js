@@ -9,11 +9,13 @@ $(document).ready(function(){
                 return;
             }
             result.data.forEach(function(bill){
+                bill.cep = (bill.cep)? '<a href="http://localhost:3000/address/' + bill.cep + '" target="_blank">' + bill.cep + '</a>' : '-';
                 let tmpl = '<tr>'+
-                           '  <td>' + bill.title + '</td>'+
-                           '  <td>' + bill.price + '</td>'+
-                           '  <td>' +  moment(bill.date).format('L LT') + '</td>'+
-                           '  <td><button id="btn_delete" type="button" class="btn btn-danger btn-small" data-id='+ bill._id+' >Delete</button></td></td>'+
+                           '  <td align=center>' + bill.title + '</td>'+
+                           '  <td align=center>' + bill.price + '</td>'+
+                           '  <td align=center>' +  moment(bill.date).format('L LT') + '</td>'+
+                           '  <td align=center>'+bill.cep+'</td>'+
+                           '  <td align=center><button id="btn_delete" type="button" class="btn btn-danger btn-small" data-id='+ bill._id+' >Delete</button></td></td>'+
                            '</tr>';
                 $('#list_table tbody').append(tmpl)
             })
@@ -40,15 +42,18 @@ $(document).ready(function(){
         let title = $('input[name="title"]').val()
         let price = $('input[name="price"]').val()
         let category = $('#select_category').val()
+        let cep = $('input[name="cep"]').val()
 
-        if(!title || !price){
+        if(!title || !price || !category){
             console.log('Invalid Body')
             return
         }
         
-        $.post('http://localhost:3000/bills',{title,price,category},function(result){
+        $.post('http://localhost:3000/bills',{title,price,category,cep},function(result){
             $('input[name="title"]').val('')
             $('input[name="price"]').val('')
+            $('#select_category').val('')
+            $('input[name="cep"]').val('')
             listData()
         });
 
