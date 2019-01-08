@@ -1,13 +1,12 @@
-import Bill from '../schema/Bill'
+import Category from './../schema/Category'
 import moment from 'moment' 
 
 
 export default (req, res) =>{
-     Bill
+    Category
         .find({})
-        .populate('category')
-        .then((bills) =>{
-            if(!bills || !bills.length){
+        .then((category) =>{
+            if(!category || !category.length){
                 return res.status(404)
                           .json({
                               status:false,
@@ -17,7 +16,7 @@ export default (req, res) =>{
             return res.status(200)
                       .json({
                             status:true,
-                            data:bills
+                            data:category
                        })  
         })
         .catch(err =>res.status(500)
